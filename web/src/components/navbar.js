@@ -5,14 +5,14 @@ export default function Navbar() {
     <div className="navbar has-shadow">
      <div className="navbar-brand">
         <div className="navbar-item">
-          <p className="title">Easy Todo</p>
+          <p className="title">Task Follows you</p>
         </div>
 
-        <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <div role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
-        </a>
+        </div>
       </div>
 
       <div className="navbar-menu">

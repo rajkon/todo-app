@@ -5,12 +5,12 @@ const TodoList = (props) => {
 
     const todos = [
         {
-            "id": Date.now(),
+            "id": 1,
             "value": "Buy milk",
             "done": false
         },
         {
-            "id": Date.now() + 1,
+            "id": 2,
             "value": "Play with doge",
             "done": true
         }
