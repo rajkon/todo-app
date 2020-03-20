@@ -19,14 +19,13 @@ server.use(bodyParser.json());
 // << db setup >>
 const db = require("./db");
 const dbName = "datadb";
-const collectionName = "movies";
+const collectionName = "todo-collection";
 server.get('/', (req, res) => {
     res.send("hello from api!");
 });
 
 // append /api for our http requests
 server.use('/api', router);
-
 
 // (optional) only made for logging and
 // bodyParser, parses the request body to be a readable json format
@@ -37,11 +36,12 @@ server.use(logger('dev'));
 
 // << db init >>
 db.initialize(dbName, collectionName, function (dbCollection) { // successCallback
-    // get all items
-    dbCollection.find().toArray(function (err, result) {
-        if (err) throw err;
-        console.log(result);
-    });
+    
+    // get all items  - only in Test Env
+    // dbCollection.find().toArray(function (err, result) {
+    //     if (err) throw err;
+    //     console.log(result);
+    // });
 
     // << db CRUD routes >>
     server.post("/items", (request, response) => {

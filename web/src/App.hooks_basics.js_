@@ -1,0 +1,64 @@
+import React, { useState, useEffect } from 'react';
+
+import Navbar from './components/navbar'
+import TodoList from './components/todolist'
+import axios from 'axios';
+import Counter from './components/counter';
+
+
+
+const App = () => {
+
+
+  const [data, setData] = useState({ hits: [] });
+
+  useEffect(async () => {
+    const result = await axios(
+      'https://hn.algolia.com/api/v1/search?query=redux'
+    );
+    console.log(result.data);
+    setData(result.data);
+  }, []);
+
+
+
+  const [hasUserLoginError, setUserLoginErrors] = useState(true);
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    async function fetchData(err, resp) {
+      const result = await axios.get(
+        'http://localhost:8080/user'
+      );
+      throw err;
+      setUser(result.data);
+      setUserLoginErrors(false);
+      console.log(JSON.stringify(result.data));
+    }
+    fetchData().catch(err => {
+      setUserLoginErrors(true);
+    });
+  }, []);
+  
+
+  return (
+    <div>
+      <div>
+        <h6>Hi !!! {user.name ? (<p> {user.name} </p>) : (<p></p>)}</h6>
+        {hasUserLoginError ? (<p> Please login with correct username and password</p>) : (<p> logged in</p>)}
+        <Navbar />
+        <TodoList />
+        <Counter />
+        {/* <ul>
+        {data.hits.map(item => (
+          <li key={item.objectID}>
+            <a href={item.url}>{item.title}</a>
+          </li>
+        ))}
+      </ul> */}
+      </div>
+    </div>
+  );
+}
+
+export default App

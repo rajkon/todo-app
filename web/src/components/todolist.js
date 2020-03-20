@@ -1,38 +1,45 @@
 import React from 'react';
 import Todo from './todo'
+import { connect } from 'react-redux';
+import { toggleTodoComplete, deleteTodoAction } from '../redux';
 
 const TodoList = (props) => {
+    const { todos } = props;
 
-    const todos = [
-        {
-            "id": 1,
-            "value": "Buy milk",
-            "done": false
-        },
-        {
-            "id": 2,
-            "value": "Play with doge",
-            "done": true
-        }
-    ]
+    const toggleComplete = (todoId) => {
+        props.toggleTodoComplete(todoId);
+    };
+    const deleteTodo = (todoId) => {
+        props.deleteTodoAction(todoId);
+    };
 
     return (
-        <div>
-            <div className="hero is-info">
-                <div className="hero-body has-text-centered">
-                    <p className="title is-1">Todos</p>
-                </div>
-            </div>
+        <ul className="todo-list">
+            {todos.map((todo) => (
+                <li key={todo.id}>
+                    <input
+                        type="checkbox"
+                        checked={todo.complete}
+                        onChange={toggleComplete.bind(null, todo.id)}
+                    />
+                    <span className={todo.complete ? 'complete' : null}>{todo.name}</span>
+                    <span
+                        className="delete-button"
+                        onClick={deleteTodo.bind(null, todo.id)}
+                    >
+                        X
+              </span>
+                </li>
+            ))}
+        </ul>
+    );
+};
 
-            <section className="section">
-                <div className="container">
-                    {todos.map(todo => (
-                        <Todo key={todo.id} todo={todo} />
-                    ))}
-                </div>
-            </section>
-        </div>
-    )
-}
+const mapStateToProps = (state) => ({
+    todos: state.todos
+});
 
-export default TodoList;
+export default connect(
+    mapStateToProps,
+    { toggleTodoComplete, deleteTodoAction }
+)(TodoList);

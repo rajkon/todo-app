@@ -2,7 +2,7 @@
 
 // mongodb driver
 const MongoClient = require("mongodb").MongoClient;
-const CONNECTION_STRING_FROM_ATLAS = "mongodb+srv://<username>:<password>@cluster0-lk9ld.mongodb.net/test?retryWrites=true&w=majority";
+const CONNECTION_STRING_FROM_ATLAS = "mongodb+srv://<username>:<password>@cluster0-lh9md.mongodb.net/test?retryWrites=true&w=majority";
 const dbConnectionUrl = CONNECTION_STRING_FROM_ATLAS;
 
 function initialize(
@@ -19,7 +19,6 @@ function initialize(
             const dbObject = dbInstance.db(dbName);
             const dbCollection = dbObject.collection(dbCollectionName);
             console.log("[MongoDB connection] SUCCESS");
-
             successCallback(dbCollection);
         }
     });
