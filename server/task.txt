@@ -1,8 +1,12 @@
 
 
 let id = 0;
+
+//task and task_detail json fields
+
 let name = null ;
 let notes = null ;
+let detailed_notes = null;
 let subtasks[ ] = [ ] ;  
 let task_predecessor_id = null;
 let task_successor_id = null;
