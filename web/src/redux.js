@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import uuid from 'uuid/v4';
+import uuid from 'uuid/v4'; //universal id
 
 const allowed_action = {
   ADD_TODO: 'ADD_TODO',
