@@ -1,17 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 
 import Navbar from './components/navbar'
 import TodoList from './components/todolist'
 import TodoInput from './components/TodoInput'
-import "./App.css";
+
 import axios from 'axios';
-import { Provider } from 'react-redux';
-import { store } from './redux';
-import TimeRange from "./components/TimeRange";
-import EditTask from "./components/EditTask";
-import GoogleLoginComp from "./components/react-google-login";
-import SocialLog from "./components/socialLogin";
-import SocialButton from "./components/SocialButton";
+import {Provider} from 'react-redux';
+import {store} from './redux';
 
 
 const App = () => {
@@ -34,8 +29,8 @@ const App = () => {
         async function getDataFromDb() {
             await fetch('http://localhost:8080/getData')
                 .then((data) => data.json())
-                .then((res) => setState({ data: res.data }));
-        };
+                .then((res) => setState({data: res.data}));
+        }
 
         getDataFromDb().then((err) => console.log('err getData:' + err));
     }, []);
@@ -60,7 +55,6 @@ const App = () => {
             }
         });
 
-
         axios.delete('http://localhost:8080/api/deleteData', {
             data: {
                 id: objIdToDelete,
@@ -81,91 +75,164 @@ const App = () => {
 
         axios.post('http://localhost:8080/api/updateData', {
             id: objIdToUpdate,
-            update: { message: updateToApply },
+            update: {message: updateToApply},
         });
     };
-    const { data } = state;
+    const {data} = state;
     return (
-        <Provider store={store}>
-            <div>
-                <div>
-                    {/* <Navbar /> */}
-                    <TodoInput/>
-                    <TodoList />
-                    {/* <ul>
+        < Provider;;
+store = {store} >
+    < div>
+        < div>
+            {/* <Navbar /> */}
+            < TodoInput / >
+            < TodoList / >
+                {/* <ul>
           {data.hits.map(item => (
             <li key={item.objectID}>
               <a href={item.url}>{item.title}</a>
             </li>
           ))}
-        </ul> */}
+        </ul> */
+                }
+            < /div>
 
-                </div>
-
-                <div>
-                    <ul>
+                < div>
+                    < ul>
                         {(data === null) | data === undefined | data === '' ?
                             'NO DB ENTRIES YET'
                             : data.map((dat) => (
-                                <li style={{ padding: '10px' }} key={data.message}>
-                                    <span style={{ color: 'gray' }}> id: </span> {dat.id} <br />
-                                    <span style={{ color: 'gray' }}> data: </span>
-                                    {dat.message}
-                                </li>
-                            ))}
-                    </ul>
-                    <div style={{ padding: '10px' }}>
-                        <input
-                            type="text"
-                            onChange={(e) => setState({ message: e.target.value })}
-                            placeholder="add something in the database"
-                            style={{ width: '200px' }}
-                        />
-                        <button>
-                            {/* <button onClick={() => putDataToDB(state.message)}> */}
-                            ADD
-                        </button>
-                    </div>
-                    <div style={{ padding: '10px' }}>
-                        <input
-                            type="text"
-                            style={{ width: '200px' }}
-                            onChange={(e) => setState({ idToDelete: e.target.value })}
-                            placeholder="put id of item to delete here"
-                        />
-                        <button onClick={() => deleteFromDB(state.idToDelete)}>
-                            DELETE
-                        </button>
-                    </div>
-                    <div style={{ padding: '10px' }}>
-                        <input
-                            type="text"
-                            style={{ width: '200px' }}
-                            onChange={(e) => setState({ idToUpdate: e.target.value })}
-                            placeholder="id of item to update here"
-                        />
-                        <input
-                            type="text"
-                            style={{ width: '200px' }}
-                            onChange={(e) => setState({ updateToApply: e.target.value })}
-                            placeholder="put new value of the item here"
-                        />
-                        <button
-                            onClick={() =>
-                                updateDB(state.idToUpdate, state.updateToApply)
+                                < li;
+                            style = {;
+                        {
+                            '10px'
+                        }
+                        }
+                            key = {data.message} >
+                            < span;
+                            style = {;
+                        {
+                            'gray'
+                        }
+                        }>
+                            id: <
+                            /span> {dat.id} <br / >
+                            < span;
+                            style = {;
+                        {
+                            'gray'
+                        }
+                        }>
+                            data: <
+                            /span>;
+                            {
+                                dat.message
                             }
-                        >
+                            <
+                            /li>;
+                            ))
+                            }
+                            <
+                            /ul>
+                            < div;
+                            style = {;
+                        {
+                            '10px'
+                        }
+                        }>
+                            <
+                            input;
+                            type = "text";
+                            onChange = {(e);
+                            =>
+                            setState({message: e.target.value})
+                        }
+                            placeholder = "add something in the database";
+                            style = {;
+                        {
+                            '200px'
+                        }
+                        }
+                            />
+                            < button >
+                            {/* <button onClick={() => putDataToDB(state.message)}> */};
+                            ADD
+                            < /button>
+                            < /div>
+                            < div;
+                            style = {;
+                        {
+                            '10px'
+                        }
+                        }>
+                            <
+                            input;
+                            type = "text";
+                            style = {;
+                        {
+                            '200px'
+                        }
+                        }
+                            onChange = {(e);
+                            =>
+                            setState({idToDelete: e.target.value})
+                        }
+                            placeholder = "put id of item to delete here"
+                            / >
+                            < button;
+                            onClick = {();
+                            =>
+                            deleteFromDB(state.idToDelete)
+                        }>
+                            DELETE
+                            < /button>
+                            < /div>
+                            < div;
+                            style = {;
+                        {
+                            '10px'
+                        }
+                        }>
+                            <
+                            input;
+                            type = "text";
+                            style = {;
+                        {
+                            '200px'
+                        }
+                        }
+                            onChange = {(e);
+                            =>
+                            setState({idToUpdate: e.target.value})
+                        }
+                            placeholder = "id of item to update here"
+                            / >
+                            < input;
+                            type = "text";
+                            style = {;
+                        {
+                            '200px'
+                        }
+                        }
+                            onChange = {(e);
+                            =>
+                            setState({updateToApply: e.target.value})
+                        }
+                            placeholder = "put new value of the item here"
+                            / >
+                            < button;
+                            onClick = {();
+                            =>
+                            updateDB(state.idToUpdate, state.updateToApply)
+                        }
+                            >
                             UPDATE
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div>
-                {/*<EditTask/>*/}
-                {/*<TimeRange/>*/}
+                            < /button>
+                            < /div>
+                            < /div>
+                            < /div>
+                            < /Provider>);
+                            };
 
-            </div>
-        </Provider>);
-}
-
-export default App
+                            export default App
+;

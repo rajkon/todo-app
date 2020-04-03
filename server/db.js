@@ -1,8 +1,8 @@
 // db.js
-
+let personal=require("./config");
 // mongodb driver
 const MongoClient = require("mongodb").MongoClient;
-const CONNECTION_STRING_FROM_ATLAS = "mongodb+srv://<username>:<password>@cluster0-lh9md.mongodb.net/test?retryWrites=true&w=majority";
+const CONNECTION_STRING_FROM_ATLAS = `mongodb+srv://${personal.MyConfig.name}:${personal.MyConfig.password}@cluster0-frkte.mongodb.net/test?retryWrites=true&w=majority`;
 const dbConnectionUrl = CONNECTION_STRING_FROM_ATLAS;
 
 function initialize(
