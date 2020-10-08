@@ -5,8 +5,9 @@ import TodoList from './components/todolist'
 import TodoInput from './components/TodoInput'
 
 import axios from 'axios';
-import { Provider } from 'react-redux';
-import { store } from './redux';
+import { useSelector, useDispatch } from "react-redux";
+import actions from "./actions/actions";
+import ToDo from "./components/todo";
 
 // import React from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -19,7 +20,21 @@ import SignUp from "./components/signup.component";
 
 const App = () => {
 
-  return (<Router>
+  
+
+  const todos = useSelector((store) => store.reducer.todos);
+  const dispatch = useDispatch();
+
+  const redux_add = (todo) => dispatch(actions.redux_add(todo));
+  const redux_delete = (id) => dispatch(actions.redux_delete(id));
+
+  const props = { todos, redux_add, redux_delete };
+
+
+  return (
+
+    
+  <Router>
     <div className="App">
       <nav className="navbar navbar-expand-lg navbar-light fixed-top">
         <div className="container">
@@ -39,7 +54,7 @@ const App = () => {
       <div className="auth-wrapper">
         <div className="auth-inner">
           <Switch>
-            <Route exact path='/' component={Login} />
+            <Route exact path='/' render={ (props) => <TodoList {...props}/>}/>
             <Route path="/sign-in" component={Login} />
             <Route path="/sign-up" component={SignUp} />
           </Switch>
@@ -64,13 +79,13 @@ const App = () => {
   // changed and implement those changes into our UI
   useEffect(() => {
     async function getDataFromDb() {
-      await fetch('http://localhost:8080/getData')
+      await fetch('http://localhost:8080/items')
         .then((data) => data.json())
         .then((res) => setState({ data: res.data }));
     };
 
     getDataFromDb().then((err) => console.log('err getData:' + err));
-  }, []);
+  },[]);
 
   // just a note, here, in the front end, we use the id key of our data object
   // in order to identify which we want to Update or delete.
@@ -115,82 +130,82 @@ const App = () => {
       update: { message: updateToApply },
     });
   };
-  const { data } = state;
-  return (
-    <Provider store={store}>
-      <div>
-        <div>
-          {/* <Navbar /> */}
-          <TodoInput/>
-          <TodoList />
-          {/* <ul>
-          {data.hits.map(item => (
-            <li key={item.objectID}>
-              <a href={item.url}>{item.title}</a>
-            </li>
-          ))}
-        </ul> */}
-        </div>
+  // const { data } = state;
+  // return (
+  //   <Provider store={store}>
+  //     <div>
+  //       <div>
+  //         {/* <Navbar /> */}
+  //         <TodoInput/>
+  //         <TodoList />
+  //         {/* <ul>
+  //         {data.hits.map(item => (
+  //           <li key={item.objectID}>
+  //             <a href={item.url}>{item.title}</a>
+  //           </li>
+  //         ))}
+  //       </ul> */}
+  //       </div>
 
-        <div>
-          <ul>
-            {(data === null) | data === undefined | data === '' ?
-              'NO DB ENTRIES YET'
-              : data.map((dat) => (
-                <li style={{ padding: '10px' }} key={data.message}>
-                  <span style={{ color: 'gray' }}> id: </span> {dat.id} <br />
-                  <span style={{ color: 'gray' }}> data: </span>
-                  {dat.message}
-                </li>
-              ))}
-          </ul>
-          <div style={{ padding: '10px' }}>
-            <input
-              type="text"
-              onChange={(e) => setState({ message: e.target.value })}
-              placeholder="add something in the database"
-              style={{ width: '200px' }}
-            />
-            <button>
-            {/* <button onClick={() => putDataToDB(state.message)}> */}
-              ADD
-          </button>
-          </div>
-          <div style={{ padding: '10px' }}>
-            <input
-              type="text"
-              style={{ width: '200px' }}
-              onChange={(e) => setState({ idToDelete: e.target.value })}
-              placeholder="put id of item to delete here"
-            />
-            <button onClick={() => deleteFromDB(state.idToDelete)}>
-              DELETE
-      </button>
-          </div>
-          <div style={{ padding: '10px' }}>
-            <input
-              type="text"
-              style={{ width: '200px' }}
-              onChange={(e) => setState({ idToUpdate: e.target.value })}
-              placeholder="id of item to update here"
-            />
-            <input
-              type="text"
-              style={{ width: '200px' }}
-              onChange={(e) => setState({ updateToApply: e.target.value })}
-              placeholder="put new value of the item here"
-            />
-            <button
-              onClick={() =>
-                updateDB(state.idToUpdate, state.updateToApply)
-              }
-            >
-              UPDATE
-      </button>
-          </div>
-        </div>
-      </div>
-    </Provider>);
+  //       <div>
+  //         <ul>
+  //           {(data === null) | data === undefined | data === '' ?
+  //             'NO DB ENTRIES YET'
+  //             : data.map((dat) => (
+  //               <li style={{ padding: '10px' }} key={data.message}>
+  //                 <span style={{ color: 'gray' }}> id: </span> {dat.id} <br />
+  //                 <span style={{ color: 'gray' }}> data: </span>
+  //                 {dat.message}
+  //               </li>
+  //             ))}
+  //         </ul>
+  //         <div style={{ padding: '10px' }}>
+  //           <input
+  //             type="text"
+  //             onChange={(e) => setState({ message: e.target.value })}
+  //             placeholder="add something in the database"
+  //             style={{ width: '200px' }}
+  //           />
+  //           <button>
+  //           {/* <button onClick={() => putDataToDB(state.message)}> */}
+  //             ADD
+  //         </button>
+  //         </div>
+  //         <div style={{ padding: '10px' }}>
+  //           <input
+  //             type="text"
+  //             style={{ width: '200px' }}
+  //             onChange={(e) => setState({ idToDelete: e.target.value })}
+  //             placeholder="put id of item to delete here"
+  //           />
+  //           <button onClick={() => deleteFromDB(state.idToDelete)}>
+  //             DELETE
+  //     </button>
+  //         </div>
+  //         <div style={{ padding: '10px' }}>
+  //           <input
+  //             type="text"
+  //             style={{ width: '200px' }}
+  //             onChange={(e) => setState({ idToUpdate: e.target.value })}
+  //             placeholder="id of item to update here"
+  //           />
+  //           <input
+  //             type="text"
+  //             style={{ width: '200px' }}
+  //             onChange={(e) => setState({ updateToApply: e.target.value })}
+  //             placeholder="put new value of the item here"
+  //           />
+  //           <button
+  //             onClick={() =>
+  //               updateDB(state.idToUpdate, state.updateToApply)
+  //             }
+  //           >
+  //             UPDATE
+  //     </button>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   </Provider>);
 }
 
 export default App

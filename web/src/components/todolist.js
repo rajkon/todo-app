@@ -1,12 +1,15 @@
 import React from 'react';
-import Todo from './todo'
+//import Todo from './todo'
 import { connect } from 'react-redux';
 import { toggleTodoComplete, deleteTodoAction } from '../redux';
+import { useDispatch, useSelector } from "react-redux";
 
 const TodoList = (props) => {
-    const { todos } = props;
+  console.log("props:::"+props);
+  const { todos } = props;
 
-    const toggleComplete = (todoId) => {
+
+  const toggleComplete = (todoId) => {
         props.toggleTodoComplete(todoId);
     };
     const deleteTodo = (todoId) => {
@@ -35,11 +38,13 @@ const TodoList = (props) => {
     );
 };
 
-const mapStateToProps = (state) => ({
-    todos: state.todos
-});
 
-export default connect(
-    mapStateToProps,
-    { toggleTodoComplete, deleteTodoAction }
-)(TodoList);
+export default TodoList;
+// const mapStateToProps = (state) => ({
+//     todos: state.todos
+// });
+
+// export default connect(
+//     mapStateToProps,
+//     { toggleTodoComplete, deleteTodoAction }
+// )(TodoList);

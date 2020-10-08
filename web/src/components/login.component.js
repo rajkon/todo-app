@@ -3,7 +3,7 @@ import React, { Component } from "react";
 export default class Login extends Component {
     render() {
         return (
-            <form>
+            <form action='/'>
                 <h3>Log In</h3>
 
                 <div className="form-group">
